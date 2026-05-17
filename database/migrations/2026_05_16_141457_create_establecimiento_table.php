@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('direccion',250);
             $table->string('imagen');
             $table->string('telefono',20);
-            $table->string('email',250);
-            $table->string('website',250);
+            $table->string('email',250)->nullable();
+            $table->string('website',250)->nullable();
             $table->string('horario_apertura',250);
             $table->string('horario_cierre',250);
             $table->string('latitud',150);
