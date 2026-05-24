@@ -15,6 +15,8 @@ class EstablecimientoController extends Controller
     public function index(Request $request)
     {
 
+        return "hola desde el controlador de establecimientos index";
+
         $porPagina = $request->input('per_page', 10);
         $paginaActual = $request->input('page', 1);
         $busqueda = $request->input('search', '');
@@ -41,11 +43,10 @@ class EstablecimientoController extends Controller
     public function store(StoreEstablecimientoRequest $request)
     {
 
-        // $imagen = $request->file('archivo_imagen');
+        $imagen = $request->file('archivo_imagen');
 
-        // $nombreArchvio = $imagen->store('uploads','public');
-        // $request->merge(['imagen' => $nombreArchvio]);
-        $request->merge(['imagen' => 'uploads/default.png']);
+        $nombreArchivo = $imagen->store('uploads','public');
+        $request->merge(['imagen' => $nombreArchivo, 'estado' => 'ACTIVO']);
 
         $establecimiento = Establecimiento::create($request->all());
         return response()->json([

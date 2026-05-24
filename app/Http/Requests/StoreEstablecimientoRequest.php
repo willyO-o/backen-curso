@@ -34,7 +34,7 @@ class StoreEstablecimientoRequest extends FormRequest
             'horario_cierre' => 'required|date_format:H:i|after:horario_apertura',
             'latitud' => 'required|numeric',
             'longitud'  => 'required|numeric',
-            'estado' => 'required|in:ACTIVO,INACTIVO',
+            // 'estado' => 'required|in:ACTIVO,INACTIVO',
             'categoria_id' => 'required|exists:categoria,id',
         ];
     }
