@@ -11,6 +11,10 @@ class Establecimiento extends Model
     //
     protected $table = 'establecimiento';
 
+
+    protected  $appends = [
+        'url_imagen'
+    ];
     public static function boot()
     {
         parent::boot();
@@ -18,6 +22,23 @@ class Establecimiento extends Model
         static::creating(function ($establecimiento){
             $establecimiento->user_id = 1;
         });
+    }
+
+
+    public function getUrlImagenAttribute()
+    {
+        return asset('storage/'.$this->imagen);
+    }
+
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'categoria_id');
+    }
+
+    public function servicios()
+    {
+        return $this->hasMany(Servicio::class, 'establecimiento_id');
     }
 
 }

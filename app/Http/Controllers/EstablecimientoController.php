@@ -15,7 +15,6 @@ class EstablecimientoController extends Controller
     public function index(Request $request)
     {
 
-        return "hola desde el controlador de establecimientos index";
 
         $porPagina = $request->input('per_page', 10);
         $paginaActual = $request->input('page', 1);
@@ -60,7 +59,11 @@ class EstablecimientoController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $establecimiento = Establecimiento::with(['categoria', 'servicios'])->findOrFail($id);
+
+        return response()->json([
+            'data' => $establecimiento
+        ]);
     }
 
 
