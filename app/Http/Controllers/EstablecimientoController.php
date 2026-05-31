@@ -21,12 +21,11 @@ class EstablecimientoController extends Controller
         $busqueda = $request->input('search', '');
         $categoriaId = $request->input('categoria_id');
 
-        $establecimientos = Establecimiento::when($busqueda, function ($query, $busqueda) {
+        $establecimientos = Establecimiento::with(['categoria'])->when($busqueda, function ($query, $busqueda) {
             $query->where('nombre', 'like', "%{$busqueda}%")
                 ->orWhere('descripcion', 'like', "%{$busqueda}%")
                 ->orWhere('direccion', 'like', "%{$busqueda}%");
-        })
-            ->when($categoriaId, function ($query, $categoriaId) {
+        })->when($categoriaId, function ($query, $categoriaId) {
                 $query->where('categoria_id', $categoriaId);
             })
             ->paginate($porPagina, ['*'], 'page', $paginaActual);

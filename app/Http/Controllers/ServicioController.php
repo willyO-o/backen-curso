@@ -15,7 +15,13 @@ class ServicioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $servicio = Servicio::create($request->all());
+
+        return response()->json([
+            'message' => 'Servicio creado exitosamente',
+            'data' => $servicio
+        ], 201);
     }
 
     /**
@@ -33,6 +39,12 @@ class ServicioController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $servicio = Servicio::findOrFail($id);
+        $servicio->update($request->all());
+        return response()->json([
+            'message' => 'Servicio actualizado exitosamente',
+            'data' => $servicio
+        ]);
     }
 
     /**
@@ -41,5 +53,12 @@ class ServicioController extends Controller
     public function destroy(string $id)
     {
         //
+        $servicio = Servicio::findOrFail($id);
+
+        $servicio->delete();
+
+        return response()->json([
+            'message' => 'Servicio eliminado exitosamente'
+        ]);
     }
 }
